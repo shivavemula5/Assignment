@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %} {% block title %} question {% endblock title %} {% block content %}
+
+<div class="card my-2" style="width: 48rem; margin: auto">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <h3 class="mb-2">{{ question }}</h3>
+      <div style="max-width: 100%; margin-top: 1rem">{{ form|crispy }}</div>
+      <div class="d-flex justify-content-center">
+        <input
+          type="submit"
+          value="Post"
+          class="btn btn-primary mx-5"
+          style="width: 7rem"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% for answer in answers %}
+<div class="card my-3" style="width: 48rem; margin: auto">
+  <div class="d-flex justify-content-between align-items-center">
+    <p class="mx-3 my-1" style="font-size: 1.25rem">
+      answered by {{answer.user}}
+    </p>
+    <p class="mx-3 my-1">on {{answer.created_at}}</p>
+  </div>
+  <hr class="my-0" />
+  <div class="card-body">
+    <h4 class="my-0"><strong>{{answer}}</strong></h4>
+  </div>
+  <hr class="my-0" />
+  <div>
+    <a href='{% url "like_answer" answer.id %}'><i
+      class="fa fa-thumbs-up fa-2x mx-2 my-2"
+      id="like_button"
+      aria-hidden="true"
+    ></i></a>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
