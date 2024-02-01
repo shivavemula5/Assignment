@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from quora.models import Question, Answer, Like
 from quora.forms import QuestionForm, AnswerForm
 
+# Hello this is comment one !
 
 @login_required
 def home(request):
@@ -44,3 +45,8 @@ def like_answer(request, answer_id):
     Like.objects.create(user=user, answer=answer)
     url = reverse('question_detail', kwargs={"id": question_id})
     return redirect(url)
+
+
+def greet(request):
+    return "hello"
+
